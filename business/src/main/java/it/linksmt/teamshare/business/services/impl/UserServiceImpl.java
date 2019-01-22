@@ -3,6 +3,8 @@ package it.linksmt.teamshare.business.services.impl;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,13 +18,14 @@ import it.linksmt.teamshare.entities.User;
 import it.linksmt.teamshare.repository.UserRepository;
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+@Transactional
 public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository userRepository;
 
-
+	
+	
 	@Override
     public List<UserDto> searchUsers(String email, String nome, String cognome) {
             List<User> users = userRepository.findByEmailContainingAndNomeContainingAndCognomeContaining(email, nome, cognome);
